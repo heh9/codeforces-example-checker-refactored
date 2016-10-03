@@ -1,7 +1,9 @@
-import os, sys, urllib.request, re, subprocess, bs4, json
+import os, sys, urllib.request, re, subprocess, json
+from bs4 import BeautifulSoup
 
 EXTENSIONS_MAP = 'extensions-map.json'
 CONFIG_FILE = 'settings.json'
+
 
 "Loading configs"
 with open(CONFIG_FILE) as cfg_file:
@@ -28,7 +30,7 @@ class ExampleParser:
         else:
             plm
             os.makedirs(contest_path, exist_ok=True)
-            self.page = bs4.BeautifulSoup(urllib.request.urlopen(self.link), "html.parser")
+            self.page = BeautifulSoup(urllib.request.urlopen(self.link), "html.parser")
             inputs = self.page.find_all('div', attrs = {'class' : 'input'})
             outputs = self.page.find_all('div', attrs = {'class' : 'output'})
 
@@ -46,6 +48,7 @@ class ExampleParser:
                 json.dump(tests, wf)
 
         return tests
+
 
 class Compiler:
     def __init__(self, filename):
@@ -71,6 +74,7 @@ class Compiler:
         print('Took: ', self.__parse_time(stderr.decode('utf-8')))
         return stdout.decode('utf-8')
 
+
 class Comparator:
     def __init__(self, real_output, expected_output):
         self.real_out = real_output
@@ -81,6 +85,7 @@ class Comparator:
             if real_line != expec_line: return False
 
         return True
+
 
 def main():
     arguments = sys.argv
@@ -100,4 +105,6 @@ def main():
         else: print('OK')
 
 
-main()
+if __name__ == "__main__":
+    main()
+
