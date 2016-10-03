@@ -1,0 +1,18 @@
+{
+  "cpp": {
+    "compile": "g++ FILENAME -o _FILENAME",
+    "run": "./_FILENAME"
+  },
+  "py": {
+    "compile": "",
+    "run": "python FILENAME"
+  },
+  "c": {
+    "compile": "g++ FILENAME -o _FILENAME",
+    "run": "./FILENAME"
+  },
+  "js": {
+    "compile": "",
+    "run": "node FILENAME"
+  }
+}
